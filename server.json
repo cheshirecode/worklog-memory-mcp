@@ -1,0 +1,49 @@
+{
+  "$schema": "https://static.modelcontextprotocol.io/schemas/2025-12-11/server.schema.json",
+  "name": "io.github.cheshirecode/worklog-memory-mcp",
+  "title": "Worklog Memory",
+  "description": "Agent memory over a git worklog vault: FSM task files with typed evidence, not embeddings soup.",
+  "version": "0.1.0",
+  "repository": {
+    "url": "https://github.com/cheshirecode/worklog-memory-mcp",
+    "source": "github",
+    "id": "1357854433"
+  },
+  "websiteUrl": "https://github.com/cheshirecode/worklog-memory-mcp#readme",
+  "packages": [
+    {
+      "registryType": "npm",
+      "registryBaseUrl": "https://registry.npmjs.org",
+      "identifier": "worklog-memory-mcp",
+      "version": "0.1.0",
+      "runtimeHint": "npx",
+      "transport": { "type": "stdio" },
+      "environmentVariables": [
+        {
+          "name": "WORKLOG_REPO",
+          "description": "Absolute path to the worklog vault clone this server reads and writes.",
+          "format": "filepath",
+          "isRequired": true,
+          "isSecret": false,
+          "placeholder": "/path/to/your/worklog-vault"
+        },
+        {
+          "name": "WORKLOG_BIN",
+          "description": "Absolute path to the worklog skill's bin/ directory. Every write runs these scripts, so vault lint and commit hooks apply.",
+          "format": "filepath",
+          "isRequired": true,
+          "isSecret": false,
+          "placeholder": "/path/to/dotfiles/skills/worklog/bin"
+        },
+        {
+          "name": "WORKLOG_LDAP",
+          "description": "Namespace under people/ in the vault. Defaults to 'oss'.",
+          "format": "string",
+          "isRequired": false,
+          "isSecret": false,
+          "default": "oss"
+        }
+      ]
+    }
+  ]
+}
