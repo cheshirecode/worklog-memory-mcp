@@ -1,0 +1,24 @@
+name: e2e
+on:
+  push:
+    branches: [main]
+  pull_request:
+jobs:
+  e2e:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: worklog bin (from dotfiles)
+        run: git clone --depth 1 https://github.com/cheshirecode/dotfiles /tmp/dotfiles
+      - name: synthetic vault
+        run: |
+          git init -q /tmp/mini-vault
+          mkdir -p /tmp/mini-vault/people/oss/active /tmp/mini-vault/people/oss/archive
+          echo "# mini vault" > /tmp/mini-vault/README.md
+          git -C /tmp/mini-vault -c user.name=ci -c user.email=ci@test add -A
+          git -C /tmp/mini-vault -c user.name=ci -c user.email=ci@test commit -qm init
+      - run: npm install
+      - run: WORKLOG_SOURCE=/tmp/mini-vault WORKLOG_BIN=/tmp/dotfiles/skills/worklog/bin node test/e2e.js

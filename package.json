@@ -1,0 +1,13 @@
+{
+  "name": "worklog-memory-mcp",
+  "version": "0.1.0",
+  "description": "MCP agent-memory server over a git worklog vault: FSM task files, typed evidence, resumable context packs — not embeddings soup.",
+  "type": "module",
+  "bin": { "worklog-memory-mcp": "server.js" },
+  "scripts": { "test": "node test/e2e.js" },
+  "license": "MIT",
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "^1.0.0",
+    "zod": "^3.23.0"
+  }
+}
