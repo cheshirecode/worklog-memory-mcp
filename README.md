@@ -51,3 +51,32 @@ remote is ever touched), then: session A creates a task and checkpoints
 typed evidence; a **separate server process** (session B) hydrates that
 context and finds the evidence by search. 5 checks, run in CI against a
 synthetic vault.
+
+## Publishing (not done yet)
+
+`server.json` is committed and validated against the MCP Registry schema
+`2025-12-11`. Nothing is published. Two steps remain, and both need
+credentials this repo does not hold:
+
+1. **npm.** `server.json` points at the npm package `worklog-memory-mcp`
+   at version `0.1.0`. That package is not on npm yet. Publish it first
+   (`npm publish`), or the registry cannot resolve it.
+2. **MCP Registry.** Then:
+
+   ```bash
+   mcp-publisher login github   # opens a browser device-code flow
+   mcp-publisher publish
+   ```
+
+   The `io.github.cheshirecode/` namespace is claimed by proving you own
+   the matching GitHub account, so the login step is required.
+
+Validation itself needs no login and is safe to run at any time:
+
+```bash
+mcp-publisher validate   # ✅ server.json is valid
+```
+
+Keep the three versions in step when you cut a release: `package.json`
+`version`, the top-level `version` in `server.json`, and the `version`
+inside its `packages[0]` entry.
